@@ -10,6 +10,12 @@
 import sys
 import os
 from pathlib import Path
+
+# User site-packages 경로 추가 (nohup 환경에서 모듈을 찾을 수 있도록)
+user_site = os.path.expanduser("~/.local/lib/python3.9/site-packages")
+if user_site not in sys.path:
+    sys.path.insert(0, user_site)
+
 from dotenv import load_dotenv
 
 # 프로젝트 루트의 .env 파일 로드

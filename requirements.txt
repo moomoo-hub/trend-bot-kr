@@ -6,4 +6,3 @@ schedule
 python-dotenv
 feedparser
 psutil
-python-dotenv

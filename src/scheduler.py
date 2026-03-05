@@ -132,4 +132,5 @@ def start_scheduler() -> None:
         logger.info("[스케줄러] 사용자 중단. 종료합니다.")
     except Exception as e:
         logger.error(f"[스케줄러] 예상치 못한 오류: {e}")
+        send_error_report("스케줄러", str(e)[:100])
         raise

@@ -49,13 +49,16 @@ def run_with_retry(func, step_name: str):
             logger.warning(f"[오류] {step_name} 시도 {i+1} 실패: {str(e)[:50]}...")
 
 
-def run_cycle() -> None:
+def run_cycle(skip_time_check: bool = False) -> None:
     """한 사이클: 수집 → 선별 → 작성 → 발송"""
     # 운영 시간 확인 (09:00 ~ 21:59)
-    hour = datetime.now().hour
-    if hour < 9 or hour >= 22:
-        logger.info(f"현재 {hour:02d}시 - 운영 시간 외(09:00~21:59). 스킵.")
-        return
+    if not skip_time_check:
+        hour = datetime.now().hour
+        if hour < 9 or hour >= 22:
+            logger.info(f"현재 {hour:02d}시 - 운영 시간 외(09:00~21:59). 스킵.")
+            return
+    else:
+        logger.info("⭐ [테스트 모드] 시간 체크를 무시하고 실행합니다.")
 
     logger.info("=" * 60)
     logger.info("트렌드봇 사이클 시작")

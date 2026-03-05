@@ -41,7 +41,8 @@ def print_help() -> None:
     print("""
 트렌드봇 사용법:
   python main.py        - 2시간마다 반복 실행 (즉시 1회 시작)
-  python main.py once   - 1회만 실행 (테스트용)
+  python main.py once   - 1회만 실행 (테스트용, 시간 체크함)
+  python main.py test   - 테스트 메시지 1회 발송 (시간 체크 무시)
   python main.py help   - 도움말 표시
 """)
 
@@ -54,6 +55,10 @@ def main() -> None:
     if mode == "once":
         from scheduler import run_cycle
         run_cycle()
+
+    elif mode == "test":
+        from scheduler import run_cycle
+        run_cycle(skip_time_check=True)
 
     elif mode in ("run", ""):
         from scheduler import start_scheduler

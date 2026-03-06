@@ -18,9 +18,16 @@ if user_site not in sys.path:
 
 from dotenv import load_dotenv
 
-# 프로젝트 루트의 .env 파일 로드
+# .env 파일 로드 (여러 위치에서 찾기)
 root_dir = Path(__file__).parent
-load_dotenv(root_dir / ".env")
+env_paths = [
+    Path("/home/dev-env/configs/trend-bot-kr-deploy/.env"),  # 서버 설정 경로
+    root_dir / ".env",  # 로컬 경로
+]
+for env_file in env_paths:
+    if env_file.exists():
+        load_dotenv(env_file)
+        break
 
 # src 폴더를 Python 경로에 추가
 sys.path.insert(0, str(root_dir / 'src'))
